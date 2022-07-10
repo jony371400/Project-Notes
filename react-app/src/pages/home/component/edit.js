@@ -1,0 +1,58 @@
+import { useState } from "react"
+import { v4 } from 'uuid'
+
+const Edit = ({ AddData }) => {
+
+    // console.log('AddData : ', AddData)
+    // console.log('Type AddData : ', typeof(AddData))
+
+    const [note, setNote] = useState("")
+
+    function noteChange(e) {
+        setNote(e.target.value)
+        console.log(e.target.value)
+    }
+
+    const [date, setDate] = useState("")
+    function dateChange(e) {
+        setDate(e.target.value)
+        console.log(e.target.value)
+    }
+
+    const [time, setTime] = useState("")
+    function timeChange(e) {
+        setTime(e.target.value)
+        console.log(e.target.value)
+    }
+
+    function AddItem() {
+        AddData((preData) => {
+
+            // console.log('preData : ', preData)
+            // console.log('Type preData : ', typeof(preData))
+
+            return [
+                ...preData, {
+                    id: v4(),
+                    note,
+                    date,
+                    time,
+                }]
+        })
+    }
+
+    return <div className="edit">
+        <h1>Notes</h1>
+        <p>Title : </p>
+        <input type="text" value={note} onChange={noteChange}></input>
+        <p>Date : </p>
+        <input type="date" value={date} onChange={dateChange}></input>
+        <p>Time : </p>
+        <input type="time" value={time} onChange={timeChange}></input>
+        <br></br>
+        <br></br>
+        <button onClick={AddItem} className="createbtn">Create</button>
+    </div>
+}
+
+export default Edit
